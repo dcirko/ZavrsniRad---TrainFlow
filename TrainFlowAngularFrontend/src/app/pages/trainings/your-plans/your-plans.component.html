@@ -1,0 +1,149 @@
+<div class="intro">
+    <h1>Your Training Plans</h1>
+    <p>Here you can find all your saved or created training plans.</p>
+</div>
+<section class="your-trainings">
+  <h2>Training Plans Created By You</h2>
+  <div class="training-cards" *ngIf="userPlans?.length; else noPlans">
+    <div class="training-card" *ngFor="let plan of userPlans" (click)="openSavedModal(plan, 'user')">
+      <h3>{{ plan.name }}</h3>
+      <p>{{ plan.description }}</p>
+      <span class="tag">{{ plan.difficulty }}</span>
+
+      <div class="card-actions">
+        <button class="btn edit" (click)="editPlan(plan.id); $event.stopPropagation()">Edit</button>
+        <button class="btn delete" (click)="deletePlan(plan.id); $event.stopPropagation()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPlans>
+    <p>You didn't create any plans yet. <a href="/trainingPage/createPlan">Create one now</a>.</p>
+  </ng-template>
+</section>
+
+
+<section class="quote-hero">
+  <div class="overlay">
+    <h1>"The pain you feel today will be the strength you feel tomorrow."</h1>
+    <p>Push beyond limits. Your journey starts here.</p>
+  </div>
+</section>
+
+
+<section class="scroll-section" *ngIf="savedPlans?.length; else noSavedPlans">
+  <h2>Saved Training Plans</h2>
+  <p>Review training plans you've saved to continue your fitness journey.</p>
+
+  <div class="scroll-container-wrapper">
+    <button class="scroll-btn left" (click)="scrollLeft()">‹</button>
+
+    <div class="scroll-container" #scrollBox>
+      <a class="plan-card" *ngFor="let plan of savedPlans" (click)="openSavedModal(plan, 'saved')">
+        <h3>{{ plan.name }}</h3>
+        <p>{{ plan.description }}</p>
+        <h4>{{ plan.difficulty }}</h4>
+
+        <div class="plan-action">
+          <ng-container *ngIf="!activePlans[plan.id]; else alreadyActiveSaved">
+            <button class="btn primary" (click)="makeActivePlan(plan.id); $event.stopPropagation()">
+              ✅ Make Active
+            </button>
+          </ng-container>
+
+          <ng-template #alreadyActiveSaved>
+            <p class="active-msg"><span>🔥 This plan is currently active!</span></p>
+            <button class="remove-btn" (click)="makeInactivePlan(plan.id)">Make Inactive</button>
+          </ng-template>
+        </div>
+
+        <button class="remove-btn" (click)="removeSavedPlan(plan.id); $event.stopPropagation()">Remove</button>
+      </a>
+    </div>
+
+    <button class="scroll-btn right" (click)="scrollRight()">›</button>
+  </div>
+</section>
+
+<ng-template #noSavedPlans>
+  <section class="scroll-section">
+    <h2>Saved Training Plans</h2>
+    <p class="empty-message">You don’t have any saved training plans yet.</p>
+  </section>
+</ng-template>
+
+
+<!-- === SHARED MODAL === -->
+<div class="modal-overlay" *ngIf="selectedPlan" (click)="closeSavedModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeSavedModal()">×</button>
+    <h2>{{ selectedPlan.name }}</h2>
+    <p><strong>Goal:</strong> {{ selectedPlan.goal }}</p>
+    <p><strong>Difficulty:</strong> {{ selectedPlan.difficulty }}</p>
+    <p><strong>Description:</strong> {{ selectedPlan.description }}</p>
+
+    <div *ngFor="let day of selectedPlan.days" class="training-day">
+      <h3>{{ day.day }} – {{ day.name }}</h3>
+
+      <div class="table-wrapper" *ngIf="day.name != 'Rest Day'">
+        <table class="exercise-table">
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Category</th>
+              <th>Sets</th>
+              <th>Reps</th>
+              <th>Rest</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ex of day.exercises">
+              <td>{{ ex.exerciseName }}</td>
+              <td>{{ ex.category }}</td>
+              <td>{{ ex.sets }}</td>
+              <td>{{ ex.reps }}</td>
+              <td>{{ ex.restTime }}s</td>
+              <td>{{ ex.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- === USER CREATED PLANS === -->
+    <div *ngIf="modalSource === 'user'" class="plan-action">
+      <ng-container *ngIf="!selectedPlan?.isActive; else alreadyActiveUser">
+        <button class="btn primary" (click)="makeActivePlan(selectedPlan.id)">
+          ✅ Make Active
+        </button>
+      </ng-container>
+
+      <ng-template #alreadyActiveUser>
+        <p class="active-msg"><span>🔥 This plan is currently active!</span></p>
+        <button class="remove-btn" (click)="makeInactivePlan(selectedPlan.id)">Make Inactive</button>
+      </ng-template>
+    </div>
+
+    <!-- === SAVED PLANS === -->
+    <div *ngIf="modalSource === 'saved'" class="plan-action">
+      <ng-container *ngIf="!activePlans[selectedPlan.id]; else alreadyActiveSavedModal">
+        <button class="btn primary" (click)="makeActivePlan(selectedPlan.id)">
+          ✅ Make Active
+        </button>
+      </ng-container>
+
+      <ng-template #alreadyActiveSavedModal>
+        <p class="active-msg"><span>🔥 This plan is currently active!</span></p>
+        <button class="remove-btn" (click)="makeInactivePlan(selectedPlan.id)">Make Inactive</button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<section class="quote-section ">
+  <blockquote>
+    <p>“The body achieves what the mind believes.”</p>
+  </blockquote>
+</section>
+

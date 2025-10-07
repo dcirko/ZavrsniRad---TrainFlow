@@ -1,0 +1,173 @@
+<section class="profile-container" *ngIf="user">
+    <h1>My Profile</h1>
+  
+    <div class="profile-card">
+      <div class="profile-field">
+        <span class="field-label">Name:</span>
+        <span class="field-value">{{ user.name }}</span>
+      </div>
+  
+      <div class="profile-field">
+        <span class="field-label">Surname:</span>
+        <span class="field-value">{{ user.surname }}</span>
+      </div>
+  
+      <div class="profile-field">
+        <span class="field-label">Email:</span>
+        <span class="field-value">{{ user.email }}</span>
+      </div>
+  
+      <div class="profile-field">
+        <span class="field-label">Gender:</span>
+        <span class="field-value">{{ user.gender }}</span>
+      </div>
+
+      <div class="profile-field">
+        <span class="field-label">Age:</span>
+        <span *ngIf="!editingAge" class="field-value">{{ user.age || '—' }}</span>
+        <input *ngIf="editingAge" type="number" [(ngModel)]="newAge" placeholder="Enter age" />
+        <button (click)="editingAge = !editingAge">{{ editingAge ? 'Cancel' : 'Edit' }}</button>
+      </div>
+  
+      <div class="profile-field">
+        <span class="field-label">Height (cm):</span>
+        <span *ngIf="!editingHeight" class="field-value">{{ user.height || '—' }}</span>
+        <input *ngIf="editingHeight" type="number" [(ngModel)]="newHeight" placeholder="Enter height" />
+        <button (click)="editingHeight = !editingHeight">{{ editingHeight ? 'Cancel' : 'Edit' }}</button>
+      </div>
+  
+      <div class="profile-field">
+        <span class="field-label">Weight (kg):</span>
+        <span *ngIf="!editingWeight" class="field-value">{{ user.weight || '—' }}</span>
+        <input *ngIf="editingWeight" type="number" [(ngModel)]="newWeight" placeholder="Enter weight" />
+        <button (click)="editingWeight = !editingWeight">{{ editingWeight ? 'Cancel' : 'Edit' }}</button>
+      </div>
+    </div>
+  
+    <div *ngIf="editingAge || editingHeight || editingWeight" style="margin-top: 20px; text-align: center;">
+      <button class="update-btn" (click)="saveDetails()">Save Details</button>
+    </div>
+</section>
+  
+  <div class="bmi-section" *ngIf="user?.height && user?.weight; else bmiPrompt">
+    <div class="bmi-header">
+      <h2>
+        Your BMI (Body Mass Index):
+        <span class="bmi-tooltip-icon" title="BMI = weight (kg) / height² (m²)&#10;Example: 70 / (1.75×1.75) = 22.9">ℹ️</span>
+      </h2>
+    </div>
+    <p class="bmi-value">{{ calculateBMI(user.height!, user.weight!) }}</p>
+    <p class="bmi-category">{{ getBMICategory(calculateBMI(user.height!, user.weight!)) }}</p>
+  </div>
+  
+  <ng-template #bmiPrompt>
+      <div class="bmi-placeholder">
+        <h2>Your BMI:</h2>
+        <p class="bmi-message">To see your BMI, please enter your height and weight in your profile.</p>
+      </div>  
+  </ng-template>
+  
+  
+
+  <section class="scroll-section" *ngIf="savedPlans?.length; else noSavedPlans">
+  <h2>Saved Training Plans</h2>
+  <p>Review training plans you've saved to continue your fitness journey.</p>
+
+  <div class="scroll-container-wrapper">
+    <button class="scroll-btn left" (click)="scrollLeft()">‹</button>
+
+    <div class="scroll-container" #savedScrollBox>
+      <a class="plan-card" *ngFor="let plan of savedPlans" (click)="openSavedModal(plan)">
+        <h3>{{ plan.name }}</h3>
+        <p>{{ plan.description }}</p>
+        <h4>{{plan.difficulty}}</h4>
+        
+        <div class="plan-action">
+          <ng-container *ngIf="!activePlans[plan.id]; else alreadyActive">
+            <button class="btn primary" (click)="makeActivePlan(plan.id)">
+              ✅ Make Active
+            </button>
+          </ng-container>
+
+          <ng-template #alreadyActive>
+            <p class="active-msg">
+              <span>🔥 This plan is currently active!</span>
+            </p>
+            <button class="remove-btn" (click)="makeInactivePlan(plan.id)">Make Inactive</button>
+          </ng-template>
+        </div>
+
+        <button class="remove-btn" (click)="removeSavedPlan(plan.id); $event.stopPropagation()">Remove</button>
+      </a>
+    </div>
+
+    <button class="scroll-btn right" (click)="scrollRight()">›</button>
+  </div>
+
+  <div class="modal-overlay" *ngIf="selectedSavedPlan" (click)="closeSavedModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeSavedModal()">×</button>
+      <h2>{{ selectedSavedPlan.name }}</h2>
+      <p><strong>Goal:</strong> {{ selectedSavedPlan.goal }}</p>
+      <p><strong>Difficulty:</strong> {{ selectedSavedPlan.difficulty }}</p>
+      <p><strong>Description:</strong> {{ selectedSavedPlan.description }}</p>
+
+      <div *ngFor="let day of selectedSavedPlan.days" class="training-day">
+        <h3>{{ day.day }} – {{ day.name }}</h3>
+
+        <div class="table-wrapper" *ngIf="day.name !='Rest Day'">
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Category</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ex of day.exercises">
+                <td>{{ ex.exerciseName }}</td>
+                <td>{{ ex.category }}</td>
+                <td>{{ ex.sets }}</td>
+                <td>{{ ex.reps }}</td>
+                <td>{{ ex.restTime }}s</td>
+                <td>{{ ex.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="plan-action">
+        <ng-container *ngIf="!activePlans[selectedSavedPlan.id]; else alreadyActiveSavedModal">
+        <button class="btn primary" (click)="makeActivePlan(selectedSavedPlan.id)">
+          ✅ Make Active
+        </button>
+      </ng-container>
+
+      <ng-template #alreadyActiveSavedModal>
+        <p class="active-msg"><span>🔥 This plan is currently active!</span></p>
+        <button class="remove-btn" (click)="makeInactivePlan(selectedSavedPlan.id)">Make Inactive</button>
+      </ng-template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #noSavedPlans>
+  <section class="scroll-section">
+    <h2>Saved Training Plans</h2>
+    <p class="empty-message">You don’t have any saved training plans yet.</p>
+  </section>
+</ng-template>
+
+
+<section class="quote-section">
+  <blockquote>
+    <p>"Success isn't always about greatness. It's about consistency. Consistent hard work leads to success. Greatness will come."</p>
+  </blockquote>
+</section>
+
+  

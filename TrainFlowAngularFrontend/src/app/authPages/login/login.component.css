@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Instrumental Sans', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(49, 87, 83, 0.9);
+}
+
+
+.login {
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    width: 380px;
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(10px); 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+    margin-top: 100px;
+
+}
+
+
+.login h1 {
+    margin-bottom: 20px;
+    font-size: 52px;
+    font-weight: bold;
+}
+
+
+.login h1 .fit {
+    color: #36ad79; 
+    font-family: 'Lexend Exa', sans-serif;
+}
+
+.login h1 .flow {
+    color: #449bf9; 
+    font-family: 'Lexend Exa', sans-serif;
+}
+
+.login h3 {
+    font-size: 25px;
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 500;
+}
+
+
+.login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login input {
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.login input:focus {
+    border-color: #36ad79;
+    box-shadow: 0px 0px 8px rgba(54, 173, 121, 0.6);
+}
+
+
+.login button {
+    padding: 14px;
+    margin-top: 12px;
+    background: #36ad79;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.login button:hover {
+    background: #2b8f63;
+    box-shadow: 0px 5px 10px rgba(54, 173, 121, 0.4);
+    transform: scale(1.05);
+}
+
+.login a {
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.login a:hover {
+    transform: scale(1.08);
+}
+
+.signup {
+    margin-top: 16px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.649);
+}
+
+.signup a {
+    color: rgba(255, 255, 255, 0.649);;
+    
+    text-decoration: underline;
+    transition: 0.3s ease-in-out;
+}
+
+.signup a:hover {
+    color: #36ad79;
+}
+
+
+.forgot-password {
+    margin-top: 12px;
+    font-size: 15px;
+}
+
+.forgot-password a {
+    color: #449bf9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.back-home {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.back-home a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.back-home a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}

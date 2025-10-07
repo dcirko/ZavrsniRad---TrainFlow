@@ -1,0 +1,139 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: rgba(49, 87, 83, 0.9);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Instrumental Sans', sans-serif;
+  background-color: rgba(49, 87, 83, 0.9);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.create-plan-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.create-plan-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+}
+
+.create-plan-container h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.create-plan-container input,
+.create-plan-container select,
+.create-plan-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background: #36ad79;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #2b8f63;
+  transform: scale(1.05);
+}
+
+.error {
+  color: #ff9999;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.day-card, .exercise-entry {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.back-home {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.back-home a {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.back-home a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.day-card h3 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.exercise-entry {
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+.exercise-preview p {
+  margin: 0;
+  color: white;
+}
+
+/* GRID layout for sets, reps, restTime */
+.exercise-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.exercise-stats label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.exercise-stats input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+

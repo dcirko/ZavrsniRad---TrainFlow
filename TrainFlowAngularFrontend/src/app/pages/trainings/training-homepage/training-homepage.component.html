@@ -1,0 +1,138 @@
+<section class="hero-training">
+  <h1>Discover Your Perfect Training Plan</h1>
+  <p>No matter your level, we’ve got something for you.</p>
+</section>
+
+<section class="training-info">
+  <div class="info-box">
+    <h3>🏋️ Structured Workouts</h3>
+    <p>Follow science-backed programs built for strength, endurance and performance.</p>
+  </div>
+  <div class="info-box">
+    <h3>🧠 Smart Progress</h3>
+    <p>Track progress, adjust difficulty, and never plateau again.</p>
+  </div>
+  <div class="info-box">
+    <h3>📆 Flexible Scheduling</h3>
+    <p>Train on your time – anytime, anywhere.</p>
+  </div>
+</section>
+
+
+
+<section class="plan-actions-with-image">
+  <div class="plan-text">
+    <h2>Choose Your Next Step</h2>
+    <p>Start your personalized journey or get inspired by suggested training plans.</p>
+    <div class="plan-buttons">
+      <a routerLink="/trainingPage/createPlan" class="btn primary">Create New Plan</a>
+      <a href="/trainingPage/#suggested" class="btn secondary">Explore Suggested Plans</a>
+    </div>
+  </div>
+  <div class="plan-image">
+    <img src="/images/treninigLaptop.jpg" alt="Choose your training path">
+  </div>
+</section>
+
+<section class="your-plans">
+  <div class="plans-container">
+    <div class="plans-illustration">
+      <img src="/images/treningPlan.jpg" alt="Your plans" />
+    </div>
+    <div class="plans-text">
+      <h2>Your Custom Plans</h2>
+      <p>Access your saved and personalized training programs.</p>
+      <a routerLink="/trainingPage/yourPlans" class="btn primary">View Your Plans</a>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section id="suggested" class="scroll-section">
+  <h2>Suggested Training Plans</h2>
+  <p>Explore already existing training plans and save it for your journey</p>
+
+  <div class="scroll-container-wrapper">
+    <button class="scroll-btn left" (click)="scrollLeft()">‹</button>
+
+    <div class="scroll-container" #scrollBox *ngIf="suggestedPlans?.length">
+      <a
+        class="plan-card"
+        *ngFor="let plan of suggestedPlans"
+        (click)="openPlanModal(plan.id)"
+      >
+        <div class="plan-card-body">
+          <h3>{{ plan.name }}</h3>
+          <p>{{ plan.description }}</p>
+          <h4>{{plan.difficulty}}</h4>
+        </div>
+        <div class="card-actions" *ngIf="checkIfAdmin">
+          <button class="btn edit" (click)="editSuggestedPlan(plan.id); $event.stopPropagation()">Edit</button>
+          <button class="btn delete" (click)="deleteSuggestedPlan(plan.id); $event.stopPropagation()">Delete</button>
+        </div>
+      </a>
+    </div>
+
+    <button class="scroll-btn right" (click)="scrollRight()">›</button>
+  </div>
+
+  <div class="addNewSuggestedPlan" *ngIf="checkIfAdmin">
+    <button class="btn add" (click)="addNewSuggestedPlan()">Add New Suggested Plan</button>
+  </div>
+
+
+  <div class="modal-overlay" *ngIf="fullTrainingPlan" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeModal()">×</button>
+      <h2>{{ fullTrainingPlan.name }}</h2>
+      <p><strong>Goal:</strong> {{ fullTrainingPlan.goal }}</p>
+      <p><strong>Difficulty:</strong> {{ fullTrainingPlan.difficulty }}</p>
+      <p><strong>Description:</strong> {{ fullTrainingPlan.description }}</p>
+
+      <div *ngFor="let day of fullTrainingPlan.days" class="training-day">
+        <h3>{{ day.day }} – {{ day.name }}</h3>
+
+        <div class="table-wrapper" *ngIf="!day.name.match('Rest Day')">
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Category</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ex of day.exercises">
+                <td>{{ ex.exerciseName }}</td>
+                <td>{{ ex.category }}</td>
+                <td>{{ ex.sets }}</td>
+                <td>{{ ex.reps }}</td>
+                <td>{{ ex.restTime }}s</td>
+                <td>{{ ex.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    
+      <a class="btn primary" (click)="savePlan(fullTrainingPlan.id)">Save Plan</a>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="quote-section">
+  <blockquote>
+    <p>“Consistency is what transforms average into excellence.”</p>
+  </blockquote>
+</section>
+
+

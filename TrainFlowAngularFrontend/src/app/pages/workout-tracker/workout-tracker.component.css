@@ -1,0 +1,341 @@
+/* === HERO SECTION === */
+.hero-workout {
+  position: relative;
+  background: url('/images/photo-1599058918144-1ffabb6ab9a0\ \(1\).avif') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;   
+  min-height: 400px;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-workout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.hero-workout .hero-content {
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.hero-workout h1 {
+  font-size: 3rem;  
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-family: 'Lexend Exa', sans-serif;
+  animation-delay: 0.2s;
+}
+
+.hero-workout p {
+  font-size: 1.4rem;
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* === WORKOUT INFO (clean look, no box) === */
+.workout-info {
+  max-width: 1000px;
+  margin: 140px auto 50px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.workout-info h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222;
+  position: relative;
+  display: inline-block;
+}
+
+.workout-info h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #36ad79;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.plan-desc {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.workout-info .meta {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: #36ad79;
+  font-weight: 500;
+}
+
+.workout-info .meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.no-active-plan {
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 40px 25px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.no-active-plan h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #36ad79;
+}
+
+.no-active-plan p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+
+
+/* === WORKOUT DAY === */
+.workout-day {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.workout-day h2 {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+
+/* === EXERCISE CARDS === */
+.exercise-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  transition: transform 0.2s;
+}
+
+.exercise-card:hover {
+  transform: scale(1.02);
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exercise-header h3 {
+  font-size: 1.3rem;
+  color: #36ad79;
+}
+
+.exercise-header .category {
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 10px 0 20px;
+}
+
+
+/* === INPUTS === */
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.input-group textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.notes {
+  grid-column: span 2;
+}
+
+
+/* === REST DAY === */
+.rest-day {
+  text-align: center;
+  padding: 40px;
+  background: #f7f9fa;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+
+/* === BUTTONS === */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary {
+  background-color: #36ad79;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background-color: #2d9767;
+  transform: scale(1.05);
+}
+
+
+/* === PREVIOUS LOGS === */
+.previous-logs {
+  max-width: 900px;
+  margin: 150px auto;
+  padding: 0 20px;
+}
+
+.previous-logs h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  margin-bottom: 25px;
+  color: #222;
+  font-weight: bold;
+}
+
+.previous-logs.empty {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+.empty-message {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #999;
+}
+
+.log-list {
+  display: grid;
+  gap: 20px;
+}
+
+.log-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.log-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.log-card h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #36ad79;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.delete-btn:hover {
+  color: #e63946;
+  transform: scale(1.2);
+}
+
+
+
+/* === QUOTE SECTION === */
+.quote-section {
+  margin-top: 80px;
+  padding: 40px 20px;
+  background: #f0fdf7;
+  border-left: 6px solid #2b8f65;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.quote-section p {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-style: italic;
+}

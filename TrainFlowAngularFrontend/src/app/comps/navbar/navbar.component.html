@@ -1,0 +1,48 @@
+<nav class="navbar" *ngIf="!shouldHideNavbar()">
+  <div class="container">
+    <div class="brand">
+      <h1>
+        <a href="/"><span class="fit">Train</span><span class="flow">Flow</span></a>
+      </h1>
+    </div>
+
+    <div class="hamburger" (click)="isMenuOpen = !isMenuOpen" [class.open]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="nav-links" [class.open]="isMenuOpen">
+      <div class="linkovi">
+        <li><a routerLink="/">Home</a></li>
+        <li><a href="/profile">MyProfile</a></li>
+        <li class="dropdown" (click)="toggleDropdown()" [class.open]="isDropdownOpen">
+          <a>Training</a>
+          <ul class="dropdown-menu" *ngIf="isDropdownOpen">
+            <li><a routerLink="/trainingPage">About</a></li>
+            <li><a routerLink="/trainingPage/yourPlans">Your Trainings</a></li>
+            <li><a routerLink="/trainingPage/createPlan">Create Training Plan</a></li>
+          </ul>
+        </li>
+        <li><a href="/workoutTracker">Workout Tracker</a></li>
+      </div>
+
+      <div *ngIf="!auth.isLoggedIn()">
+        <li class="sign-in"><a href="/login">Log In</a></li>
+      </div>
+      <div *ngIf="auth.isLoggedIn()">
+        <li class="sign-in"><a href="/login" (click)="logout()">Logout</a></li>
+      </div>
+    </ul>
+  </div>
+</nav>
+<div class="active-plan-bar" *ngIf="activePlan && today && !shouldHideNavbar() && !hideActivePlan">
+  <div class="plan-info">
+    <p>🔥 Active Plan: <strong>{{ activePlan.name }}</strong></p>
+    <p>📅 Today: <strong>{{ today.day }}</strong> – {{ today.name }}</p>
+  </div>
+  <div class="plan-action">
+    <span class="plan-link" (click)="goToPlan()">View Details ➝</span>
+  </div>
+</div>
+

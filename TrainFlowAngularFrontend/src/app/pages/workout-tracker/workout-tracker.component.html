@@ -1,0 +1,113 @@
+<section class="hero-workout">
+  <div class="hero-content">
+    <h1>Workout Tracker</h1>
+    <p>Stay consistent, track progress, and achieve your goals.</p>
+  </div>
+</section>
+
+<section class="workout-info" *ngIf="activePlan; else noActivePlan">
+  <div class="plan-card">
+    <h2>{{ activePlan.name }}</h2>
+    <p class="plan-desc">{{ activePlan.description }}</p>
+    <div class="meta">
+      <span>🎯 <strong>Goal:</strong> {{ activePlan.goal }}</span>
+      <span>🔥 <strong>Difficulty:</strong> {{ activePlan.difficulty }}</span>
+    </div>
+  </div>
+</section>
+
+<ng-template #noActivePlan>
+  <div class="no-active-plan">
+    <h3>No active plan</h3>
+    <p>You do not have any plan activated right now. Make sure to activate your or saved suggested training plans.</p>
+  </div>
+</ng-template>
+
+<section class="workout-day" *ngIf="today">
+  <h2>{{ today.day }} – {{ today.name }}</h2>
+
+  <form [formGroup]="workoutForm" (ngSubmit)="saveWorkout()">
+    <div formArrayName="logs" *ngIf="today.exercises?.length; else restDay">
+      <div class="exercise-card" *ngFor="let log of logs.controls; let i = index" [formGroupName]="i">
+        <div class="exercise-header">
+          <h3>{{ today.exercises[i].exerciseName }}</h3>
+          <p class="category">{{ today.exercises[i].category }}</p>
+        </div>
+        <p class="description">{{ today.exercises[i].description }}</p>
+
+        <div class="inputs">
+          <div class="input-group">
+            <label>Planned Sets</label>
+            <input type="number" formControlName="plannedSets" />
+          </div>
+          <div class="input-group">
+            <label>Planned Reps</label>
+            <input type="number" formControlName="plannedReps" />
+          </div>
+          <div class="input-group">
+            <label>Planned Weight (kg)</label>
+            <input type="number" formControlName="plannedWeight" />
+          </div>
+          <div class="input-group">
+            <label>Actual Sets</label>
+            <input type="number" formControlName="actualSets" />
+          </div>
+          <div class="input-group">
+            <label>Actual Reps</label>
+            <input type="number" formControlName="actualReps" />
+          </div>
+          <div class="input-group">
+            <label>Actual Weight (kg)</label>
+            <input type="number" formControlName="actualWeight" />
+          </div>
+          <div class="input-group notes">
+            <label>Notes</label>
+            <textarea formControlName="notes"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="workoutForm.invalid">
+        Save Workout
+      </button>
+    </div>
+
+    <ng-template #restDay>
+      <div class="rest-day">
+        <p>Rest Day – no exercises scheduled. 💤</p>
+      </div>
+    </ng-template>
+  </form>
+</section>
+
+
+<section class="previous-logs" *ngIf="previousLogs?.length; else noLogs">
+  <h2>📜 Your Previous Logs For This Training Plan</h2>
+  <div class="log-list">
+    <div class="log-card" *ngFor="let log of previousLogs">
+      <div class="log-header">
+        <h4>{{ log.logDate | date:'dd.MM.yyyy' }}</h4>
+        <button class="delete-btn" (click)="deleteLog(log.id!)">🗑️</button>
+      </div>
+      <p><strong>Exercise:</strong> {{ exerciseNames[log.exerciseId] || 'Loading...' }}</p>
+      <p><strong>Planned:</strong> {{ log.plannedSets }} x {{ log.plannedReps }} || {{ log.plannedWeight }}kg</p>
+      <p><strong>Actual:</strong> {{ log.actualSets }} x {{ log.actualReps }} || {{ log.actualWeight }}kg</p>
+      <p *ngIf="log.notes"><em>"{{ log.notes }}"</em></p>
+    </div>
+  </div>
+</section>
+
+<ng-template #noLogs>
+  <section class="previous-logs empty">
+    <h2>📜 Your Previous Logs For This Training Plan</h2>
+    <p class="empty-message">You don’t have any previous workout logs yet. Start logging your training to track progress!</p>
+  </section>
+</ng-template>
+
+
+
+<section class="quote-section">
+  <blockquote>
+    <p>“Push yourself because no one else is going to do it for you.”</p>
+  </blockquote>
+</section>

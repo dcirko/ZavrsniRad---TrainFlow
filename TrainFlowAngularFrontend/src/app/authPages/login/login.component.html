@@ -1,0 +1,35 @@
+<head><link href="https://fonts.googleapis.com/css2?family=Instrumental+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="login">
+        <h1><a routerLink="/"><span class="fit">Train</span><span class="flow">Flow</span></a></h1>
+        <h3>Welcome back!</h3>
+    
+        <div class="signup">
+            <p>Don't have a TrainFlow account? <a routerLink="/register">Sign up for free</a></p>
+        </div>
+    
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <input type="email" formControlName="email" placeholder="Email" required>
+            <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+                * Please enter a valid email.
+            </div>
+    
+            <input type="password" formControlName="password" placeholder="Password" required>
+            <div class="error" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                * Password must be at least 6 characters.
+            </div>
+    
+            <button type="submit">Login</button>
+        </form>
+    
+        <div class="back-home">
+            <a routerLink="/">← Back to Home</a>
+        </div>
+    </section>
+    
+
+    
+</body>
+

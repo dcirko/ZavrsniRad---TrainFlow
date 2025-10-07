@@ -1,0 +1,480 @@
+.your-trainings {
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.your-trainings h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #36ad79;
+}
+
+.your-trainings a{
+    cursor: pointer;
+    color: #449bf9;
+    text-decoration: none;
+}
+
+.your-trainings h2 {
+  font-size: 2.4rem;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  color: #36ad79;
+}
+
+.your-trainings p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.intro {
+  background: linear-gradient(135deg, #4ec591, #36ad79);
+  margin-bottom: 40px;
+  padding: 100px 20px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.intro h1 {
+  font-size: 3.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.intro h1 span {
+  color: #ffe082; 
+}
+
+.intro p {
+  font-size: 1.25rem;
+  color: #f5f5f5;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+
+
+.training-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.training-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 35px;
+  width: 370px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+}
+
+.training-card:hover {
+  transform: translateY(-5px);
+}
+
+.training-card h3 {
+  color: #36ad79;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.training-card p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.training-card .tag {
+  background-color: #449bf9;
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+  margin-top: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn.edit {
+  background-color: #449bf9;
+  color: white;
+}
+
+.btn.edit:hover {
+  background-color: #357ac9;
+  transform: translateY(-2px);
+}
+
+.btn.delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn.delete:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.btn.secondary{
+  padding: 10px;
+  border-radius: 10px;  
+}
+
+.btn.danger {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn.danger:hover {
+  background-color: #c0392b;
+}
+
+
+.quote-hero {
+  background: url('/images/prazanGym.jpg') no-repeat center center/cover;
+  min-height: 400px;
+  color: white;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  margin: 120px 0;
+}
+
+.quote-hero .overlay {
+  
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 900px;
+}
+
+.quote-hero h1 {
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  font-family: 'Instrumental Sans', sans-serif;
+  font-weight: bold;
+  animation: fadeInUp 0.6s ease-in-out forwards;
+}
+
+.quote-hero p {
+  font-size: 1.2rem;
+  color: #ddd;
+  animation: fadeInUp 0.9s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.scroll-section {
+  padding: 60px 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+  background-color: #fff;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 180px;
+}
+
+
+.scroll-section h2 {
+  font-size: 2.1rem;
+  margin-bottom: 20px;
+  color: #36ad79;
+}
+
+.scroll-section p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+
+.scroll-container-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 30px;
+  padding: 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+.plan-card {
+  min-width: 300px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+
+.plan-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.plan-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.plan-card h3 {
+  color: #36ad79;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.plan-card p {
+  color: #555;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.plan-card h4{
+  font-size: 1.2rem;
+  text-align: center;
+  color: #449bf9;
+}
+
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffffcc;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s;
+}
+
+.scroll-btn:hover {
+  background-color: #eee;
+}
+
+.scroll-btn.left {
+  left: -10px;
+}
+
+.scroll-btn.right {
+  right: -10px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  text-align: left;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content h2 {
+  font-size: 1.8rem;
+  color: #36ad79;
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+}
+
+.exercise-table th,
+.exercise-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.exercise-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.training-day {
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.plan-action {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.btn.primary {
+  background-color: #4CAF50;
+  border: none;
+  padding: 10px 18px;
+  color: white;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.primary:hover {
+  background-color: #45a049;
+}
+
+.active-msg {
+  color: #ff9800;
+  font-weight: bold;
+  padding: 8px 0;
+}
+
+
+.remove-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.empty-message {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Motivational Quotes */
+.quote-section {
+  margin-top: 100px;
+  padding: 40px 20px;
+  background: #f0fdf7;
+  border-left: 6px solid #2b8f65;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.quote-section blockquote {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+

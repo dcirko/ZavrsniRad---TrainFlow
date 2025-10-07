@@ -1,0 +1,173 @@
+
+
+<div class="create-plan-wrapper">
+  <div class="create-plan-container" *ngIf="step === 1">
+    <h1>Create Your Plan</h1>
+    <form [formGroup]="planForm">
+      <label>Plan Name</label>
+      <input formControlName="name" />
+      <div class="error" *ngIf="planForm.get('name')?.invalid && planForm.get('name')?.touched">
+        Required
+      </div>
+
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+
+      <label>Goal</label>
+      <input formControlName="goal" />
+      <div class="error" *ngIf="planForm.get('goal')?.invalid && planForm.get('goal')?.touched">
+        Required
+      </div>
+
+      <label>Difficulty</label>
+      <select formControlName="difficulty">
+        <option value="">Select</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+      <div class="error" *ngIf="planForm.get('difficulty')?.invalid && planForm.get('difficulty')?.touched">
+        Required
+      </div>
+
+      <button [disabled]="planForm.invalid" (click)="nextStep()" type="button">Next</button>
+
+      <div class="back-home">
+        <a href="/trainingPage/">← Back to Home</a>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="create-plan-container" *ngIf="step === 2">
+    <h1>Plan Days</h1>
+    <div *ngFor="let day of daysOfWeek; let i = index" class="day-card">
+        <label>{{ day }}</label>
+        <input 
+            [(ngModel)]="planDays[i].name" 
+            name="dayName{{i}}" 
+            placeholder="e.g. Push, Pull, Rest Day"
+            required
+            minlength="3"
+            #dayName="ngModel"
+        />
+        <div class="error" *ngIf="dayName.invalid && dayName.touched">
+            <span *ngIf="dayName.errors?.['required']">Required</span>
+            <span *ngIf="dayName.errors?.['minlength']">At least 3 characters</span>
+        </div>
+    </div>
+
+
+    <button (click)="prevStep()">Back</button>
+    <button (click)="nextStep()" [disabled]="!areDayNamesValid()">Next</button>
+
+  </div>
+
+  <div class="create-plan-container" *ngIf="step === 3">
+    <h1>Exercises</h1>
+
+    <div *ngFor="let day of planDays; let dayIndex = index" class="day-card">
+      <h3>{{ daysOfWeek[dayIndex] }} – {{ day.name }}</h3>
+
+      <div *ngFor="let ex of day.exercises; let exIndex = index" class="exercise-entry">
+        <div *ngIf="ex.isEditing">
+          <label>Exercise Name</label>
+          <input 
+            [(ngModel)]="ex.exerciseName" 
+            name="exerciseName{{dayIndex}}{{exIndex}}" 
+            placeholder="e.g. Bench Press" 
+            required 
+            minlength="3" 
+            #name="ngModel" 
+            />
+            <div class="error" *ngIf="name.invalid && name.touched">
+            <span *ngIf="name.errors?.['required']">Required</span>
+            <span *ngIf="name.errors?.['minlength']">At least 3 characters</span>
+            </div>
+
+            <select 
+                [(ngModel)]="ex.category" 
+                name="category{{dayIndex}}{{exIndex}}" 
+                required 
+                #cat="ngModel"
+            >
+                <option value="">Select</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Strength">Strength</option>
+                <option value="Mobility">Mobility</option>
+                <option value="HIIT">HIIT</option>
+            </select>
+            <div class="error" *ngIf="cat.invalid && cat.touched">Required</div>
+
+            <div class="exercise-stats">
+                <div>
+                    <label>Sets</label>
+                    <input 
+                    type="number" 
+                    [(ngModel)]="ex.sets" 
+                    name="sets{{dayIndex}}{{exIndex}}" 
+                    min="1" 
+                    required 
+                    #sets="ngModel" 
+                    />
+                    <div class="error" *ngIf="sets.invalid && sets.touched">Required & must be ≥ 1</div>
+                </div>
+
+                <div>
+                    <label>Reps</label>
+                    <input 
+                    type="number" 
+                    [(ngModel)]="ex.reps" 
+                    name="reps{{dayIndex}}{{exIndex}}" 
+                    min="1" 
+                    required 
+                    #reps="ngModel" 
+                    />
+                    <div class="error" *ngIf="reps.invalid && reps.touched">Required & must be ≥ 1</div>
+                </div>
+
+                <div>
+                    <label>Rest (sec)</label>
+                    <input 
+                    type="number" 
+                    [(ngModel)]="ex.restTime" 
+                    name="rest{{dayIndex}}{{exIndex}}" 
+                    min="0" 
+                    required 
+                    #rest="ngModel" 
+                    />
+                    <div class="error" *ngIf="rest.invalid && rest.touched">Required & must be ≥ 0</div>
+                </div>
+
+                <div>
+                  <label>Description</label>
+                  <input type="text" [(ngModel)]="ex.description" name="description{{dayIndex}}{{exIndex}}" required #description="ngModel"
+                  placeholder="Description" minlength="3">
+                  <div class="error" *ngIf="description.invalid && description.touched">
+                    <span *ngIf="description.errors?.['required']">Required</span>
+                    <span *ngIf="description.errors?.['minlength']">At least 3 characters</span>
+                  </div>
+                </div>
+            </div>
+
+
+          <button (click)="saveExercise(dayIndex, exIndex)">Save</button>
+          <button (click)="removeExercise(dayIndex, exIndex)">Remove</button>
+        </div>
+
+        <div *ngIf="!ex.isEditing" class="exercise-preview">
+          <p><strong>{{ ex.exerciseName }}</strong> | {{ ex.sets }}x{{ ex.reps }} | {{ ex.category }}</p>
+          <p>{{ ex.description }}</p>
+          <button (click)="editExercise(dayIndex, exIndex)">Edit</button>
+          <button (click)="removeExercise(dayIndex, exIndex)">Remove</button>
+        </div>
+      </div>
+
+      <button (click)="addExercise(dayIndex)">+ Add Exercise</button>
+    </div>
+
+    <button (click)="prevStep()">Back</button>
+    <button (click)="createTrainingPlan()" [disabled]="!areExercisesValid()">Create Plan</button>
+
+  </div>
+</div>

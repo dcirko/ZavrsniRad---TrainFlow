@@ -1,0 +1,71 @@
+<div class="create-plan-wrapper">
+  <!-- Step 1 -->
+  <div class="create-plan-container" *ngIf="step === 1">
+    <h1>Edit Your Plan</h1>
+    <form [formGroup]="planForm">
+      <label>Plan Name</label>
+      <input formControlName="name" />
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+      <label>Goal</label>
+      <input formControlName="goal" />
+      <label>Difficulty</label>
+      <select formControlName="difficulty">
+        <option value="">Select</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+      <button type="button" (click)="nextStep()">Next</button>
+    </form>
+    <div class="back-home">
+        <a href="/trainingPage/yourPlans">← Back to Home</a>
+      </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="create-plan-container" *ngIf="step === 2">
+    <h1>Edit Days</h1>
+    <div *ngFor="let day of daysOfWeek; let i = index" class="day-card">
+      <label>{{ day }}</label>
+      <input [(ngModel)]="planDays[i].name" name="dayName{{i}}" />
+    </div>
+    <button (click)="prevStep()">Back</button>
+    <button (click)="nextStep()" [disabled]="!areDayNamesValid()">Next</button>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="create-plan-container" *ngIf="step === 3">
+    <h1>Edit Exercises</h1>
+    <div *ngFor="let day of planDays; let dayIndex = index" class="day-card">
+      <h3>{{ daysOfWeek[dayIndex] }} – {{ day.name }}</h3>
+      <div *ngFor="let ex of day.exercises; let exIndex = index">
+        <div *ngIf="ex.isEditing">
+          <input [(ngModel)]="ex.exerciseName" name="exName{{dayIndex}}{{exIndex}}" placeholder="Exercise" />
+          <select [(ngModel)]="ex.category" name="cat{{dayIndex}}{{exIndex}}">
+            <option value="">Select</option>
+            <option>Cardio</option>
+            <option>Strength</option>
+            <option>Mobility</option>
+            <option>HIIT</option>
+          </select>
+          <input type="number" [(ngModel)]="ex.sets" name="sets{{dayIndex}}{{exIndex}}" />
+          <input type="number" [(ngModel)]="ex.reps" name="reps{{dayIndex}}{{exIndex}}" />
+          <input type="number" [(ngModel)]="ex.restTime" name="rest{{dayIndex}}{{exIndex}}" />
+          <input type="text" [(ngModel)]="ex.description" name="description{{dayIndex}}{{exIndex}}" placeholder="Description">
+          <button (click)="saveExercise(dayIndex, exIndex)">Save</button>
+          <button (click)="removeExercise(dayIndex, exIndex)">Remove</button>
+        </div>
+        <div *ngIf="!ex.isEditing">
+          <p><b>{{ ex.exerciseName }}</b> | {{ ex.sets }}x{{ ex.reps }}</p>
+          <button (click)="editExercise(dayIndex, exIndex)">Edit</button>
+          <button (click)="removeExercise(dayIndex, exIndex)">Remove</button>
+        </div>
+      </div>
+      <button (click)="addExercise(dayIndex)">+ Add Exercise</button>
+    </div>
+
+    <button (click)="prevStep()">Back</button>
+    <button (click)="updateTrainingPlan()" [disabled]="!areExercisesValid()">Update Plan</button>
+  </div>
+</div>
